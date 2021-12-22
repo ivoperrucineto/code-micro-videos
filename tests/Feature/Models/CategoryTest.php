@@ -92,6 +92,10 @@ class CategoryTest extends TestCase
     {
         $category = factory(Category::class)->create();
         $category->delete();
-        $this->assertCount(0, $category->all());
+        $id = $category->id;
+        $this->assertNull($category->find($id));
+
+        $category->restore();
+        $this->assertNotNull($category->find($id));
     }
 }
